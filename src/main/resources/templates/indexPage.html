@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:utext="${title}"></title>
+</head>
+<body>
+
+<th:block th:include="/_header"></th:block>
+
+<h2>Greetings : Welcome <span th:utext="${name}"></span></h2>
+
+</body>
+</html>
