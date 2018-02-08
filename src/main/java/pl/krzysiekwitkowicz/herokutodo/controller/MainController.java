@@ -6,18 +6,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.krzysiekwitkowicz.herokutodo.dao.UserRepository;
+import pl.krzysiekwitkowicz.herokutodo.service.UserServiceImpl;
 
 import java.security.Principal;
 
 @Controller
 public class MainController {
     @Autowired
-    private UserRepository userRepository;
+    private UserServiceImpl userService;
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(Model model, Principal principal) {
         if (principal != null) {
-            model.addAttribute("name", userRepository.findNameByLogin(principal.getName()));
+            model.addAttribute("name", userService.findNameByLogin(principal.getName()));
         } else {
             model.addAttribute("name", "Stranger");
         }
