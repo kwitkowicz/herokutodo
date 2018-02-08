@@ -1,20 +1,28 @@
-package pl.krzysiekwitkowicz.herokutodo.controllers;
+package pl.krzysiekwitkowicz.herokutodo.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.krzysiekwitkowicz.herokutodo.dao.UserRepository;
 
 import java.security.Principal;
 
 @Controller
 public class MainController {
-    @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
-    public String index(Model model){
-        model.addAttribute("title","Welcome");
-        model.addAttribute("message", "This is welcome page");
+    @Autowired
+    private UserRepository userRepository;
+
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    public String index(Model model, Principal principal) {
+        if (principal != null) {
+            model.addAttribute("name", userRepository.findNameByLogin(principal.getName()));
+        } else {
+            model.addAttribute("name", "Stranger");
+        }
+        model.addAttribute("title", "Welcome");
+
         return "indexPage";
     }
 
@@ -23,15 +31,15 @@ public class MainController {
 
         return "loginPage";
     }
-    @RequestMapping(value="/todoList", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/todoList", method = RequestMethod.GET)
     public String todoPage(Model model) {
-        return "todoList";
+        return "todoListPage";
     }
 
     @RequestMapping(value = "logoutSuccessful", method = RequestMethod.GET)
-        public String logoutSuccessfulPage(Model model){
-            model.addAttribute("title","Logout");
-            return "logoutSuccessfulPage";
-        }
+    public String logoutSuccessfulPage(Model model) {
+        return "logoutSuccessfulPage";
+    }
 
 }

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div xmlns:th="http://www.thymeleaf.org"
+     style="border: 1px solid #ccc;padding:5px;margin-bottom:20px;">
+
+    <a th:href="@{/}">Home</a>
+    | &nbsp;
+    <a th:href="@{/todoList}">Todo List</a>
+    | &nbsp;
+    <a th:if="${#httpServletRequest.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+
+</div>
