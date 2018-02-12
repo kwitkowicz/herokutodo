@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.krzysiekwitkowicz.herokutodo.dao.UserRepository;
 import pl.krzysiekwitkowicz.herokutodo.service.UserServiceImpl;
 
 import java.security.Principal;
@@ -31,11 +30,6 @@ public class MainController {
     public String loginPage(Model model) {
 
         return "loginPage";
-    }
-
-    @RequestMapping(value = "/todoList", method = RequestMethod.GET)
-    public String todoPage(Model model) {
-        return "todoListPage";
     }
 
     @RequestMapping(value = "logoutSuccessful", method = RequestMethod.GET)

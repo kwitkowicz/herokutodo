@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TodoRepository extends JpaRepository<Todo, LinkageError> {
     List<Todo> findByCompletedAndUserId(boolean completed, Long id);
+
+    Todo findByName(String name);
 }

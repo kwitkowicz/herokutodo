@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.krzysiekwitkowicz.herokutodo.dao.TodoRepository;
 import pl.krzysiekwitkowicz.herokutodo.dao.UserRepository;
+import pl.krzysiekwitkowicz.herokutodo.model.Todo;
 import pl.krzysiekwitkowicz.herokutodo.model.User;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +18,8 @@ public class SetupData {
     BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    TodoRepository todoRepository;
 
     @PostConstruct
     public void init() {
@@ -26,6 +30,12 @@ public class SetupData {
         user.setRole("USER");
 
         userRepository.save(user);
+
+        Todo todo = new Todo();
+        todo.setName("My task");
+        todo.setCompleted(false);
+        todo.setUser(user);
+        todoRepository.save(todo);
 
     }
 }
